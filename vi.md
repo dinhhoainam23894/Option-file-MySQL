@@ -10,7 +10,7 @@ Lưu ý
 
 Một chương trình MySQL được bắt đầu với tùy chọn `\--no-defaults` không đọc các file tùy chọn nào ngoài `.mylogin.cnf`. 
 
-Rất nhiều các file tùy chọn là các file văn bản thuần túy, được tạo để sử dụng cho bất cứ trình soạn thảo nào. Ngoại trừ file `.mylogin.cnf` chứa những tùy chọn đường dẫn đăng nhập. Cái này là 1 file đã được mã hóa và tạo ra bởi tiện ích [**mysql_config_editor**][4]. Xem thêm tại [Section 4.6.6, "**mysql_config_editor** — MySQL Configuration Utility"][4]. Một "đường dẫn đăng nhập" ;à một nhóm tùy chọn mà chỉ các tùy chọn cụ thể là: host`, `user`, `password`, `port` và `socket`. Các chương trình phía client chỉ định đường dẫn đăng nhập nào sẽ đọc từ `.mylogin.cnf` sử dụng tùy chọn [`\--login-path`][5].
+Rất nhiều các file tùy chọn là các file văn bản thuần túy, được tạo để sử dụng cho bất cứ trình soạn thảo nào. Ngoại trừ file `.mylogin.cnf` chứa những tùy chọn đường dẫn đăng nhập. Cái này là 1 file đã được mã hóa và tạo ra bởi tiện ích [**mysql_config_editor**][4]. Xem thêm tại [Section 4.6.6, "**mysql_config_editor** — MySQL Configuration Utility"][4]. Một "đường dẫn đăng nhập" là nhóm tùy chọn chỉ cho phép một số tùy chọn nhất định: host`, `user`, `password`, `port` và `socket`. Các chương trình phía client chỉ định đường dẫn đăng nhập nào sẽ đọc từ `.mylogin.cnf` sử dụng tùy chọn [`\--login-path`][5].
 
 Để chỉ định một tên file chứa đường dẫn đăng nhập thay thế, cài đặt biến môi trường trong `MYSQL_TEST_LOGIN_FILE`. Biến này được sử dụng trong tiện ích test **mysql-test-run.pl**, nhưng cũng được tìm thấy trong [**mysql_config_editor**][4] và các MySQL client như [**mysql**][6], [**mysqladmin**][7] , v.v..
 
@@ -29,7 +29,7 @@ Trên Windows, các chương trình MySQL đọc các tùy chọn khởi tạo t
 | `defaults-extra-file`                                                                      | file được chỉ định với [`\--defaults-extra-file`][8], nếu có |  
 | ``%APPDATA%`MySQL.mylogin.cnf`                                                             | Các tùy chọn được dẫn đăng nhập (dành cho client)                             |  
 
-Ở bảng trên, `%PROGRAMDATA%` đại diện thư mục file hệ thống mà chứa các dữ liệu của ứng dụng cho tất cả người dùng trong tổ chức. Đường dẫn này mặc định nằm trong `C:ProgramData` trong Microsoft Windows Vista v.v, và `C:Documents and SettingsAll UsersApplication Data` trong các phiên bản Microsoft Windows cũ hơn
+Ở bảng trên, `%PROGRAMDATA%` đại diện cho thư mục hệ thống tệp chứa dữ liệu ứng dụng cho tất cả người dùng trên máy chủ lưu trữ. Đường dẫn này mặc định nằm trong `C:ProgramData` trong Microsoft Windows Vista v.v, và `C:Documents and SettingsAll UsersApplication Data` trong các phiên bản Microsoft Windows cũ hơn
 
 `%WINDIR%` đại diện cho vị trí của thư mục Window của bạn. Thông thường là `C:WINDOWS`. Sử dụng câu lệnh dưới đây để xác minh thực sự vị trí từ giá trị của biến môi trường `WINDIR`:
 
@@ -67,7 +67,7 @@ _`SYSCONFDIR`_ đại diện cho thư mục được chỉ định với tùy ch
 
 `MYSQL_HOME` là 1 biến môi trường chứa đường dẫn đến thư mục mà trong đó file chỉ định server `my.cnf` nằm. Nếu `MYSQL_HOME` không được cài đặt và bạn khởi động server sử dụng chương trình [**mysqld_safe**][11], [**mysqld_safe**][11] thiết lập chúng vào _`BASEDIR`_, thư mục mà MySQL cài đặt vào.
 
-_`DATADIR`_ thông thường là `/usr/local/mysql/data`, mặc dù nó có thể rất đa dạng trên mỗi nền tảng hoặc phương thức cài đặt. Giá trị của vị trí thư mục dữ liệu được xây dựng trong khi MySQL biên dịch, không phải nằm ở vị trí được chỉ định  vs tùy chọn [`\--datadir`][12] khi [**mysqld**][1] khởi động. Sử dụng [`\--datadir`][12] trong khi chạy không ảnh hưởng gì tới việc server tìm kiếm các file tuufy chọn cái mà nó đọc trước khi thực thi các tùy chọn.
+_`DATADIR`_ thông thường là `/usr/local/mysql/data`, mặc dù nó có thể rất đa dạng trên mỗi nền tảng hoặc phương thức cài đặt. Giá trị của vị trí thư mục dữ liệu được xây dựng trong khi MySQL biên dịch, không phải nằm ở vị trí được chỉ định  vs tùy chọn [`\--datadir`][12] khi [**mysqld**][1] khởi động. Sử dụng [`\--datadir`][12] trong khi chạy không ảnh hưởng gì tới việc server tìm kiếm các file tùy chọn cái mà nó đọc trước khi thực thi các tùy chọn.
 
 Nếu nhiều các thể của một tùy chọn nhất định được tìm thấy, thì cá thể cuối cùng sẽ được ưu tiên, với một ngoại lệ: Đối với **[mysqld**][1], cá thể _first_ của tùy chọn `[\--user`][13] được sử dụng là một cách bảo mật, để ngăn chăn một người được chỉ định trong một file tùy chọn từ một câu lệnh đang ghi đè.
 
@@ -85,7 +85,7 @@ Các dòng comment bắt đầu bằng `#` hay `;`. Một dòng comment `#` có 
 
 * `[_`group`_]`
 
-_`group`_ là tên của chương trình hoặc nhóm mà bạn muốn thiết lập các tùy chọn đối với chúng. Sau một nhóm dòng, bất kì dòng tùy chọn thiết lập nào áp dụng phải tên của các nhóm đã đặt đến hết file tùy chọn hoặc nhóm dòng khác được đưa ra. Tên của các nhóm tùy chọn không phải là chữ hoa.
+_`group`_ là tên của chương trình hoặc nhóm mà bạn muốn thiết lập các tùy chọn đối với chúng. Sau một nhóm dòng, bất kì dòng tùy chọn thiết lập nào áp dụng cho nhóm được đặt tên đến hết file tùy chọn hoặc nhóm dòng khác được đưa ra. Tên của các nhóm tùy chọn không phân biệt chữ hoa chữ thường.
 
 * `_`opt_name`_`
 
@@ -115,11 +115,11 @@ Các quy tắc thoát cho các giá trị tệp tùy chọn đặc biệt thích
 
 Nếu một tên nhóm tùy chọn trùng với tên một chương trình, các tùy chọn trong nhóm áp dụng cụ thể cho chương trình đó. Ví dụ, nhóm `[mysqld]` và `[mysql]` áp dụng cho chương trình **[mysqld**][1] server và client tương ứng.
 
-Tùy chọn nhóm `[client]` được đọc bởi các chương trình client được cung cấp bởi sự phân phối của MySQL, (chứ _không_ phải **[mysqld**][1]). Để hiểu rõ cách mà các chương trình third-party client sử dụng C API có thể sử dụng các file tùy chọn, xem trong C API documentation tại [Phần 27.8.7.50, "mysql_options()"][16].
+Tùy chọn nhóm `[client]` được đọc bởi các chương trình client được cung cấp trong bản phân phối của MySQL, (chứ _không_ phải **[mysqld**][1]). Để hiểu rõ cách mà các chương trình third-party client sử dụng C API có thể sử dụng các file tùy chọn, xem trong C API documentation tại [Phần 27.8.7.50, "mysql_options()"][16].
 
 Các nhóm `[client]` cho phép bạn chỉ định các tùy chọn áp dụng cho tất cả các client. Ví dụ, `[client]` là một nhóm thích hợp để sử dụng chỉ định mật khẩu cho việc kết nối tới server. (Nhưng đảm bảo rằng file tùy chọn đó có thể được truy cập bởi riêng bạn, để những người khác không thể tìm ra mật khẩu của bạn). Đảm bảo rằng không đẩy file tùy chọn trong nhóm `[client]` trừ phi nó được nhận ra bởi _tất cả_ các chương trình client mà bạn sử dụng. Các chương trình mà không hiểu tùy chọn sẽ thoát sau khi hiển thi lỗi nếu bạn cố gắng chạy chúng.
 
-Liệt kê các nhóm tùy chọn chung đầu tiên và các nhóm cụ thể ở sau.
+Liệt kê các nhóm tùy chọn chung đầu tiên và các nhóm cụ thể ở sau.Ví dụ, một nhóm [client] tổng quát hơn vì nó được đọc bởi tất cả các chương trình khách, trong khi [mysqldump] nhóm chỉ đọc bởi **mysqldump**.Các tùy chọn ghi đè tùy chọn được chỉ định sau đó được chỉ định trước đó, vì vậy hãy đặt các nhóm tùy chọn theo thứ tự [client], [mysqldump] cho phép **mysqldump**-tùy chọn cụ thể để ghi đè các tùy chọn [client].
 
 Dưới đây là một tùy chọn file toàn cục cụ thể:
     
